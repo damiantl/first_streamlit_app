@@ -36,7 +36,7 @@ import requests
 # Write new header
 streamlit.header("Fruityvice Fruit Advice!")
 
-# Add entry text box
+# Add entry text box by the user on Streamlit app new box
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 streamlit.write('The user entered ', fruit_choice)
 
