@@ -33,7 +33,7 @@ streamlit.dataframe(fruits_to_show)
 #******************************
 # Call API from Streamlit
 #******************************
-
+'''
 # New section to display fruityvice api response
 #import requests
 
@@ -86,3 +86,23 @@ my_cur.execute("insert into fruit_load_list values ('from streamlit')")
 
 # Import URLError package
 #from urllib.error import URLError
+'''
+# Including Try/Except with nested If/Else
+# Write new header
+streamlit.header("Fruityvice Fruit Advice!")
+
+# Add entry text box by the user on Streamlit app new box
+try:
+  fruit_choice = streamlit.text_input("What fruit would you like information about?")
+  if not fruit_choice:
+    streamlit.error("Please select a fruit to get information.")
+  else:
+    # GET request
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    # JSON normalization using pandas
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    # Conversion to dataframe for visualization purposes on Streamlit app
+    streamlit.dataframe(fruityvice_normalized)
+
+except URLError as e:
+  streamlit.error()
