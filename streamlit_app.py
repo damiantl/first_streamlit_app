@@ -33,64 +33,64 @@ streamlit.dataframe(fruits_to_show)
 #******************************
 # Call API from Streamlit
 #******************************
-"""
+
 # New section to display fruityvice api response
-#import requests
+##import requests
 
 # Write new header
-streamlit.header("Fruityvice Fruit Advice!")
+#streamlit.header("Fruityvice Fruit Advice!")
 
 # Add entry text box by the user on Streamlit app new box
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+#fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
+#streamlit.write('The user entered ', fruit_choice)
 
 # GET request
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+#fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 
 # JSON normalization using pandas
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+#fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
 # Conversion to dataframe for visualization purposes on Streamlit app
-streamlit.dataframe(fruityvice_normalized)
+#streamlit.dataframe(fruityvice_normalized)
 
 # Stop running everything past this point while we troubleshoot
-streamlit.stop()
+#streamlit.stop()
 
 # Import Snowflake connector
-#import snowflake.connector
+##import snowflake.connector
 
 # Connect to Snowflake from Streamlit
-#my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-#my_cur = my_cnx.cursor()
-#my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
-#my_data_row = my_cur.fetchone()
-#streamlit.text("Hello from Snowflake:")
-#streamlit.text(my_data_row)
+##my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+##my_cur = my_cnx.cursor()
+##my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+##my_data_row = my_cur.fetchone()
+##streamlit.text("Hello from Snowflake:")
+##streamlit.text(my_data_row)
 
 # Query some data from Snowflake table
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from fruit_load_list")
-my_data_rows = my_cur.fetchall()
-streamlit.text("The fruit load list contains:")
-streamlit.dataframe(my_data_rows)
+#my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+#my_cur = my_cnx.cursor()
+#my_cur.execute("select * from fruit_load_list")
+#my_data_rows = my_cur.fetchall()
+#streamlit.text("The fruit load list contains:")
+#streamlit.dataframe(my_data_rows)
 
 # Addition of a second entry box
-add_my_fruit = streamlit.text_input("What fruit would you like to add?", 'jackfruit')
-streamlit.write('Thanks for adding ' + add_my_fruit)
+#add_my_fruit = streamlit.text_input("What fruit would you like to add?", 'jackfruit')
+#streamlit.write('Thanks for adding ' + add_my_fruit)
 
 # Adding rows to Snowflake table
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+#my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+#my_cur = my_cnx.cursor()
+#my_cur.execute("insert into fruit_load_list values ('from streamlit')")
 
 # Import URLError package
-#from urllib.error import URLError
+##from urllib.error import URLError
 
 # Including Try/Except with nested If/Else
 # Write new header
 streamlit.header("Fruityvice Fruit Advice!")
-"""
+
 # Add entry text box by the user on Streamlit app new box
 try:
   fruit_choice = streamlit.text_input("What fruit would you like information about?")
