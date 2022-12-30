@@ -1,4 +1,8 @@
 import streamlit
+import pandas as pd
+import requests
+import snowflake.connector
+from urllib.error import URLError
 
 streamlit.title('My Parents New Healthy Diner')
 
@@ -11,7 +15,7 @@ streamlit.text('🥑🍞Avocado Toast')
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
 # Import pandas library
-import pandas as pd
+#import pandas as pd
 
 # Read the data from source into a pandas dataframe
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -31,7 +35,7 @@ streamlit.dataframe(fruits_to_show)
 #******************************
 
 # New section to display fruityvice api response
-import requests
+#import requests
 
 # Write new header
 streamlit.header("Fruityvice Fruit Advice!")
@@ -49,8 +53,11 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # Conversion to dataframe for visualization purposes on Streamlit app
 streamlit.dataframe(fruityvice_normalized)
 
+# Stop running everything past this point while we troubleshoot
+streamlit.stop()
+
 # Import Snowflake connector
-import snowflake.connector
+#import snowflake.connector
 
 # Connect to Snowflake from Streamlit
 #my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -76,3 +83,6 @@ streamlit.write('Thanks for adding ' + add_my_fruit)
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+
+# Import URLError package
+#from urllib.error import URLError
