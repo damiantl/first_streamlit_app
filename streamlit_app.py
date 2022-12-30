@@ -29,22 +29,8 @@ streamlit.dataframe(fruits_to_show)
 #******************************
 # Call API from Streamlit
 #******************************
-# Query some data from Snowflake table
-streamlit.header("The fruit load list contains:")
-
-# Function to get load list
-def get_fruit_load_list():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from fruit_load_list")
-    return my_cur.fetchall()
- 
-# Add button to load the data into Snowflake
-if streamlit.button('Get Fruit Load List'):
-  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-  my_data_rows = get_fruit_load_list()
-  streamlit.dataframe(my_data_rows)
-
-# Add function
+# Functions definition
+# Add function to get fruityvice data
 def get_fruityvice_data(this_fruit_choice):
   # Inside the function we include the get request and the normalization of the JSON, but not the dataframe visualization of streamlit
   # GET request
@@ -52,6 +38,29 @@ def get_fruityvice_data(this_fruit_choice):
   # JSON normalization using pandas
   fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
   return fruityvice_normalized
+
+# Function to get load list
+def get_fruit_load_list():
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("select * from fruit_load_list")
+    return my_cur.fetchall()
+
+# Function to add data into Snowflake
+def insert_row_snowflake(new_fruit):
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+   return 'Thanks for adding ' + new_fruit
+
+# End of functions definition
+
+# Query some data from Snowflake table
+streamlit.header("The fruit load list contains:")
+
+# Add button to load the data into Snowflake
+if streamlit.button('Get Fruit Load List'):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  my_data_rows = get_fruit_load_list()
+  streamlit.dataframe(my_data_rows)
 
 # Including Try/Except with nested If/Else
 # Write new header
@@ -69,3 +78,9 @@ try:
 
 except URLError as e:
   streamlit.error()
+
+# Add button to load the data into Snowflake
+if streamlit.button('Add a Fruit to the List'):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  back_from_function = insert_row_to_snowflake(fruit_choice)
+  streamlit.text(back_from_function)  
