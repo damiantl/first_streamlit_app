@@ -33,7 +33,7 @@ streamlit.dataframe(fruits_to_show)
 #******************************
 # Call API from Streamlit
 #******************************
-'''
+"""
 # New section to display fruityvice api response
 #import requests
 
@@ -86,11 +86,11 @@ my_cur.execute("insert into fruit_load_list values ('from streamlit')")
 
 # Import URLError package
 #from urllib.error import URLError
-'''
+
 # Including Try/Except with nested If/Else
 # Write new header
 streamlit.header("Fruityvice Fruit Advice!")
-
+"""
 # Add entry text box by the user on Streamlit app new box
 try:
   fruit_choice = streamlit.text_input("What fruit would you like information about?")
