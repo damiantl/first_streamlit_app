@@ -87,6 +87,15 @@ streamlit.dataframe(fruits_to_show)
 # Import URLError package
 ##from urllib.error import URLError
 
+# Add function
+def get_fruityvice_data(this_fruit_choice):
+  # Inside the function we include the get request and the normalization of the JSON, but not the dataframe visualization of streamlit
+  # GET request
+  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
+  # JSON normalization using pandas
+  fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+  return fruityvice_normalized
+
 # Including Try/Except with nested If/Else
 # Write new header
 streamlit.header("Fruityvice Fruit Advice!")
@@ -97,12 +106,9 @@ try:
   if not fruit_choice:
     streamlit.error("Please select a fruit to get information.")
   else:
-    # GET request
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-    # JSON normalization using pandas
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    back_from_function = get_fruityvice_data(fruit_choice)
     # Conversion to dataframe for visualization purposes on Streamlit app
-    streamlit.dataframe(fruityvice_normalized)
+    streamlit.dataframe(back_from_function)
 
 except URLError as e:
   streamlit.error()
